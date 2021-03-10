@@ -87,7 +87,7 @@ fi
 ```
   
 ## Maven Kurulumu
-Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğiniz bir "download" dizini oluşturalım.
+Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütüphane bağımlılığını ortadan kaldırmak için "Maven" kurulumuna geçelim.
 ```sh
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
@@ -119,7 +119,26 @@ alias rm='rm -i'
 alias cp='cp -i'  
 alias mv='mv -i'
 ```
+.baschrc dosyamızı reload edelim;
 
+```sh
+source ~/.bashrc
+```
+
+Maven sürümümüzü kontrol edelim;
+```sh
+mvn --version
+```
+
+Aşağıdaki gibi bir çıktı almamız gerekiyor;
+```sh
+Apache Maven 3.6.3 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T16:41:47+00:00)  
+Maven home: /opt/maven  
+Java version: 1.8.0_271, vendor: Oracle Corporation  
+Java home: /opt/jdk1.8.0_271/jre  
+Default locale: en_US, platform encoding: UTF-8  
+OS name: "linux", version: "3.10.0-514.6.1.el7.x86_64", arch: "amd64", family: "unix"  
+```
 
   
   
