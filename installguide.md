@@ -128,12 +128,11 @@ mvn --version
 
 Aşağıdaki gibi bir çıktı almamız gerekiyor;
 ```sh
-Apache Maven 3.6.3 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T16:41:47+00:00)  
-Maven home: /opt/maven  
-Java version: 1.8.0_271, vendor: Oracle Corporation  
-Java home: /opt/jdk1.8.0_271/jre  
-Default locale: en_US, platform encoding: UTF-8  
-OS name: "linux", version: "3.10.0-514.6.1.el7.x86_64", arch: "amd64", family: "unix"  
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: /opt/maven
+Java version: 1.8.0_271, vendor: Oracle Corporation, runtime: /opt/jdk1.8.0_271/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.10.0-1160.15.2.el7.x86_64", arch: "amd64", family: "unix"
 ```
 
 ## TOMCAT Kurulumu
