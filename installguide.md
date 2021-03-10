@@ -10,27 +10,27 @@ service firewalld stop
 chkconfig firewalld off
 ```
   
-## Java JDK Kurulumu
-Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğiniz bir "download" dizini oluşturalım.
+## JAVA JDK Kurulumu
+Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğimiz bir <b>download</b> dizini oluşturalım.
 ```sh
 yum -y install vim nano wget git epel-release
 service firewalld stop
 chkconfig firewalld off
 ```
 
-Download dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip tar komutu ile açıyoruz.
+<b>Download</b> dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip <b>tar</b> komutu ile açıyoruz.
 ```sh
 wget http://linuxpanel.net/sakai/jdk-8u271-linux-x64.tar.gz
 tar xzf jdk-8u271-linux-x64.tar.gz
 ```
 
-Java kurulumu için gerekli dosyaları indirdik ve tar komutu ile açtık. Kurulumu /opt dizini altında yapılandıracağız. “tar” ile açtığımız dosyaları /opt dizinine taşıyalım ve bu dizine geçiş yapalım.
+Java kurulumu için gerekli dosyaları indirdik ve tar komutu ile açtık. Kurulumu <b>/opt</b> dizini altında yapılandıracağız. <b>tar</b> ile açtığımız dosyaları <b>/opt</b> dizinine taşıyalım ve bu dizine geçiş yapalım.
 ```sh
 mv ~/download/jdk1.8.0_271/
 cd /opt/jdk1.8.0_271/
 ```
   
-Aşağıdaki komutu çalıştırdıktan sonra bu şekilde  bir ekran çıktısı almanız gerekmektedir. Sizin sunucunuzda başka java sürümü yok ise sadece 1 sürüm ile karşılaşabilirsiniz.
+Aşağıdaki komutu çalıştırdıktan sonra bu şekilde  bir ekran çıktısı almanız gerekmektedir. Sizin sunucunuzda başka java sürümü yok ise sadece <b>1</b> sürüm ile karşılaşabilirsiniz.
 ```sh
 alternatives --install /usr/bin/java java /opt/jdk1.8.0_271/bin/java 2
 alternatives --config java
@@ -46,7 +46,7 @@ Enter to keep the current selection[+], or type selection number: 1
 ```
 
 
-Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi javac ve jar komutlarının sorunsuz çalışması için yollarını belirlemeye. /opt/jdk1.8.0_271 dizininin içinde aşağıdaki komutları çalıştırıyoruz.
+Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi <b>javac</b> ve <b>jar</b> komutlarının sorunsuz çalışması için yollarını belirlemeye. <b>/opt/jdk1.8.0_271</b> dizininin içinde aşağıdaki komutları çalıştırıyoruz.
 ```sh
 alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_271/bin/jar 2
 alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_271/bin/javac 2
@@ -54,7 +54,7 @@ alternatives --set jar /opt/jdk1.8.0_271/bin/jar
 alternatives --set javac /opt/jdk1.8.0_271/bin/javac
 ```
   
-Java'nın sunucumuzda kurulu olup olmadığını java -version komutu ile kontrol edelim.
+Java'nın sunucumuzda kurulu olup olmadığını <b>java -version</b> komutu ile kontrol edelim.
 ```sh
 java -version
 ```
@@ -62,7 +62,7 @@ java -version
 * Java(TM) SE Runtime Environment (build 1.8.0_271-b11)  
 * Java HotSpot(TM) 64-Bit Server VM (build 25.271-b11, mixed mode)  
 
-Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. .bashrc dosyasını aşağıdaki gibi düzenlemelisiniz.
+Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
 ```sh
 vim ~/.bashrc
 ```
@@ -86,8 +86,8 @@ if [ -f /etc/bashrc ]; then
 fi
 ```
   
-## Maven Kurulumu
-Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütüphane bağımlılığını ortadan kaldırmak için "Maven" kurulumuna geçelim.
+## MAVEN Kurulumu
+Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütüphane bağımlılığını ortadan kaldırmak için <b>Maven</b> kurulumuna geçelim.
 ```sh
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
@@ -98,7 +98,7 @@ ln -s apache-maven-3.6.3/ maven
 vim ~/.bashrc
 ```
 
-.bashrc dosyasının içeriği aşağıdaki gibi olmalıdır. “16Gb ram için değer”!
+<b>.bashrc</b> dosyasının içeriği aşağıdaki gibi olmalıdır. “16Gb ram için değer”!
 
 ```sh
 # Maven
@@ -119,7 +119,7 @@ alias rm='rm -i'
 alias cp='cp -i'  
 alias mv='mv -i'
 ```
-.baschrc dosyamızı reload edelim;
+<b>.baschrc</b> dosyamızı reload edelim;
 
 ```sh
 source ~/.bashrc
@@ -140,7 +140,18 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-514.6.1.el7.x86_64", arch: "amd64", family: "unix"  
 ```
 
-  
+## TOMCAT Kurulumu
+<b>download</b> dizinine indirdiğimiz <b>apache-tomcat-8.0.32.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
+
+```sh
+cd ~/download
+wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+tar xpfz apache-maven-3.6.3-bin.tar.gz
+mv apache-maven-3.6.3 /opt
+cd /opt
+ln -s apache-maven-3.6.3/ maven
+vim ~/.bashrc
+```
   
   
   
