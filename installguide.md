@@ -90,7 +90,7 @@ Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütü
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 tar xpfz apache-maven-3.6.3-bin.tar.gz
-mv apache-maven-3.6.3 /opt
+mv apache-maven-3.6.3 /opt/apache-maven-3.6.3
 cd /opt
 ln -s apache-maven-3.6.3/ maven
 vim ~/.bashrc
