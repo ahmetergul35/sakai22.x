@@ -263,7 +263,6 @@ open_files_limit                = 65536
 thread-cache-size               = 100
 table-definition-cache          = 4096
 table-open-cache                = 10000
-innodb-buffer-pool-size         = 6G
 datadir                         = /var/lib/mysql
 socket                          = /var/lib/mysql/mysql.sock
 symbolic-links                  = 0
