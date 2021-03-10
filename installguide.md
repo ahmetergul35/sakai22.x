@@ -1,15 +1,15 @@
 <!-- GETTING STARTED -->
-## Getting Started
+## Sakai 22.x Install Guide - Ram:16GB Centos7x64
+Sakai ayrı bir sunucuya mysql ayrı bir sunucuya kurulacaktır.
+Öncelikle her iki sunucuda da şu komutları çalıştırın;
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+### Bileşenler
   ```sh
-  npm install npm@latest -g
+yum -y install vim nano wget git epel-release 
+service firewalld stop 
+chkconfig firewalld off
+
   ```
 
 ### Installation
