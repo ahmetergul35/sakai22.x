@@ -221,6 +221,71 @@ mysql_secure_installation
 ```sh
 systemctl restart mysqld
 ```
+<b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
+```sh
+cp /etc/my.cnf /etc/my.cnf.orj
+vim /etc/my.cnf
+```
+```sh
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+skip-name-resolve
+open_files_limit                = 65536
+thread-cache-size               = 100
+table-definition-cache          = 4096
+table-open-cache                = 10000
+innodb-buffer-pool-size         = 6G
+datadir                         = /var/lib/mysql
+socket                          = /var/lib/mysql/mysql.sock
+symbolic-links                  = 0
+max_connections                 = 65536                                                                                                                                                                                                                      
+thread_cache_size               = 100
+key_buffer_size                 = 32M
+low_priority_updates            = 1
+max_allowed_packet              = 20M
+query_cache_size                = 128M
+default-storage-engine          = InnoDB
+lower_case_table_names          = 1
+innodb_buffer_pool_size         = 115G
+innodb_thread_concurrency       = 50
+innodb_flush_method             = O_DIRECT
+local-infile                    = 0
+max_heap_table_size             = 128M
+tmp-table-size                  = 32M
+innodb_file_per_table           = 1
+
+
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+```
+<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
+```sh
+mysql -u root -p
+Enter password:
+mysql> create database sakaidb default character set utf8;
+mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+```
 <b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
 ```sh
 cd ~/download
@@ -423,63 +488,21 @@ defaultTransactionIsolationString@javax.sql.BaseDataSource=TRANSACTION_READ_COMM
 # This alternate validation query should be used so as not to increment the query counter unnecessarily when validating the connection:
 # validationQuery@javax.sql.BaseDataSource=show variables like 'version'
 ```
+<b>SAKAI</b>'yi başlatıyoruz;
+```sh
+catalina.sh start
+```
+Catalina.out ile tomcat loglarına bakıyoruz;
+```sh
+tail -f /opt/tomcat/logs/catalina.out
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Ekran çıktısı aşağıdaki gibi olmalıdır.
+```sh
+INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 44804 ms
+```
+## SAKAI Kuruldu;
+http://127.0.0.1:8080/portal
 <!-- CONTACT -->
 ## Contact
 
