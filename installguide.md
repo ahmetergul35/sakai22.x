@@ -286,6 +286,7 @@ innodb_file_per_table           = 1
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 ```
+<b>MySQL</b> servisini yeniden başlatalım ve servisin sağlıklı çalıştığından emin olalım;
 ```sh
 service mysqld restart
 service mysqld status
