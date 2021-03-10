@@ -295,21 +295,6 @@ pid-file=/var/run/mysqld/mysqld.pid
 service mysqld restart
 service mysqld status
 ```
-<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
-```sh
-mysql -u root -p
-Enter password:
-mysql> create database sakaidb default character set utf8;
-mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
-mysql> FLUSH PRIVILEGES;
-mysql> quit
-```
-<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
-```sh
-cd ~/download
-wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
-cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
-```
 ## SAKAI için TOMCAT ayarları
 <b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
 
@@ -352,65 +337,6 @@ Sonraki;
 ```sh
 cd ..
 rm -rf webapps/*
-```
-Ardından sakai'nin hatasız başlaması için <b>catalina.properties</b> dosyası içindeki <b>common.loader</b>, <b>server.loader</b>, <b>shared.loader</b> bölümleri aşağıdaki gibi düzenleyelim.
-```sh
-# pwd
-/opt/tomcat
-```
-```sh
-vim conf/catalina.properties
-```
-```sh
-# Note: Values are enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
-
-#
-# List of comma-separated paths defining the contents of the "server"
-# classloader. Prefixes should be used to define what is the repository type.
-# Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
-# If left as blank, the "common" loader will be used as Catalina's "server"
-# loader.
-# Examples:
-#     "foo": Add this folder as a class repository
-#     "foo/*.jar": Add all the JARs of the specified folder as class
-#                  repositories
-#     "foo/bar.jar": Add bar.jar as a class repository
-#
-# Note: Values may be enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-server.loader=
-
-#
-# List of comma-separated paths defining the contents of the "shared"
-# classloader. Prefixes should be used to define what is the repository type.
-# Path may be relative to the CATALINA_BASE path or absolute. If left as blank,
-# the "common" loader will be used as Catalina's "shared" loader.
-# Examples:
-#     "foo": Add this folder as a class repository
-#     "foo/*.jar": Add all the JARs of the specified folder as class
-#                  repositories
-#     "foo/bar.jar": Add bar.jar as a class repository
-# Please note that for single jars, e.g. bar.jar, you need the URL form
-# starting with file:.
-#
-# Note: Values may be enclosed in double quotes ("...") in case either the
-#       ${catalina.base} path or the ${catalina.home} path contains a comma.
-#       Because double quotes are used for quoting, the double quote character
-#       may not appear in a path.
-shared.loader=
-
-# Default list of JAR files that should not be scanned using the JarScanner
-# functionality. This is typically used to scan JARs for configuration
-# information. JARs that do not contain such information may be excluded from
-# the scan to speed up the scanning process. This is the default list. JARs on
-# this list are excluded from all scans. The list must be a comma separated list
-# of JAR file names.
 ```
 ## TOMCAT'i hızlı başlatmak;
 ```sh
@@ -464,6 +390,12 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS
 [INFO] Final Memory: 532M/973M
 [INFO] ------------------------------------------------------------------------
 ```
+<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
+```sh
+cd ~/download
+wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
+```
 <!-- SAKAI MySQL Settings -->
 Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
 ```sh
@@ -503,6 +435,15 @@ defaultTransactionIsolationString@javax.sql.BaseDataSource=TRANSACTION_READ_COMM
 # To get accurate MySQL query throughput statistics (e.g. for graphing) from the mysql command show status like 'Com_select'
 # This alternate validation query should be used so as not to increment the query counter unnecessarily when validating the connection:
 # validationQuery@javax.sql.BaseDataSource=show variables like 'version'
+```
+<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
+```sh
+mysql -u root -p
+Enter password:
+mysql> create database sakaidb default character set utf8;
+mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
 ```
 <b>SAKAI</b>'yi başlatıyoruz;
 ```sh
