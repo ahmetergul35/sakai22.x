@@ -309,7 +309,6 @@ mysql> quit
 cd ~/download
 wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
-cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
 ```
 ## SAKAI için TOMCAT ayarları
 <b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
