@@ -139,11 +139,11 @@ OS name: "linux", version: "3.10.0-1160.15.2.el7.x86_64", arch: "amd64", family:
 <b>download</b> dizinine indirdiğimiz <b>apache-tomcat-9.0.43.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
 ```sh
 cd ~/download
-wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-tar xpfz apache-maven-3.6.3-bin.tar.gz
-mv apache-maven-3.6.3 /opt
+wget https://kozyatagi.mirror.guzel.net.tr/apache/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43.tar.gz
+tar xpfz apache-tomcat-9.0.43.tar.gz
+mv apache-tomcat-9.0.43 /opt/
 cd /opt
-ln -s apache-maven-3.6.3/ maven
+ln -s apache-tomcat-9.0.43/ tomcat
 vim ~/.bashrc
 ```
 <b>.baschrc</b> dosyamıza ekleyelim;
