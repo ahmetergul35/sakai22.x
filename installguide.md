@@ -303,7 +303,7 @@ mysql> quit
 <b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
 ```sh
 cd ~/download
-wget http://linuxpanel.net/mysql-connector-java-8.0.19.jar
+wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
 ```
