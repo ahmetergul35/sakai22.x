@@ -286,6 +286,10 @@ innodb_file_per_table           = 1
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 ```
+```sh
+service mysqld restart
+service mysqld status
+```
 <b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
 ```sh
 mysql -u root -p
