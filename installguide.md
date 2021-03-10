@@ -188,6 +188,10 @@ Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
 ```sh
 sudo /opt/tomcat/bin/shutdown.sh
 ```
+<b>TOMCAT</b>'in sağlıklı başlaması için aşağıdaki klasörleri oluşturuyoruz;
+```sh
+mkdir -p shared/classes shared/lib common/classes common/lib server/classes server/lib
+```
 ## MySQL Kurulumu
 <b>MySQL</b> sunucusuna geçin;
 ```sh
@@ -299,13 +303,6 @@ mysql> create database sakaidb default character set utf8;
 mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
 mysql> FLUSH PRIVILEGES;
 mysql> quit
-```
-<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
-```sh
-cd ~/download
-wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
-cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
-cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
 ```
 
 ## SAKAI için TOMCAT ayarları
