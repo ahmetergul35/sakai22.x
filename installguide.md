@@ -13,9 +13,8 @@ chkconfig firewalld off
 ## JAVA JDK Kurulumu
 Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğimiz bir <b>download</b> dizini oluşturalım.
 ```sh
-yum -y install vim nano wget git epel-release
-service firewalld stop
-chkconfig firewalld off
+mkdir ~/download  
+cd ~/download
 ```
 
 <b>Download</b> dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip <b>tar</b> komutu ile açıyoruz.
