@@ -304,7 +304,13 @@ mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakai
 mysql> FLUSH PRIVILEGES;
 mysql> quit
 ```
-
+<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
+```sh
+cd ~/download
+wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
+```
 ## SAKAI için TOMCAT ayarları
 <b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
 
