@@ -21,11 +21,7 @@ cd ~/download
 ```sh
 wget http://linuxpanel.net/sakai/jdk-8u271-linux-x64.tar.gz
 tar xzf jdk-8u271-linux-x64.tar.gz
-```
-
-Java kurulumu için gerekli dosyaları indirdik ve tar komutu ile açtık. Kurulumu <b>/opt</b> dizini altında yapılandıracağız. <b>tar</b> ile açtığımız dosyaları <b>/opt</b> dizinine taşıyalım ve bu dizine geçiş yapalım.
-```sh
-mv ~/download/jdk1.8.0_271/
+mv ~/download/jdk1.8.0_271/ /opt/
 cd /opt/jdk1.8.0_271/
 ```
   
