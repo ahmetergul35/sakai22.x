@@ -13,3 +13,5 @@ To build Sakai you need Java 1.8. Once you have clone a copy of this repository 
 
 mvn install
 Running
+
+Commit directly to the main branch.
