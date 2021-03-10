@@ -281,6 +281,10 @@ Ardından sakai'nin hatasız başlaması için <b>catalina.properties</b> dosyas
 vim conf/catalina.properties
 ```
 ```sh
+# Note: Values are enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
 common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
 
 #
@@ -319,6 +323,13 @@ server.loader=
 #       Because double quotes are used for quoting, the double quote character
 #       may not appear in a path.
 shared.loader=
+
+# Default list of JAR files that should not be scanned using the JarScanner
+# functionality. This is typically used to scan JARs for configuration
+# information. JARs that do not contain such information may be excluded from
+# the scan to speed up the scanning process. This is the default list. JARs on
+# this list are excluded from all scans. The list must be a comma separated list
+# of JAR file names.
 ```
 ## TOMCAT'i hızlı başlatmak;
 ```sh
@@ -372,7 +383,46 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS
 [INFO] Final Memory: 532M/973M
 [INFO] ------------------------------------------------------------------------
 ```
+<!-- SAKAI MySQL Settings -->
+Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
+```sh
+cp /opt/tomcat/sakai/config/configuration/bundles/src/bundle/org/sakaiproject/config/bundle/default.sakai.properties /opt/tomcat/sakai/sakai.properties
+vim /opt/tomcat/sakai/sakai.properties
+```
+Veritabanı ile ilgili tanımlamaları yapmak için aşağıdaki gibi satırları düzenleyin;
+```sh
+# The database username and password. The defaults are for the out-of-the-box HSQLDB.  
+# Change to match your setup. Do NOT enable access to your database without a password.
+# Defaults: HSQLDB default user: "sa"/""
+username@javax.sql.BaseDataSource=sakaiuser
+password@javax.sql.BaseDataSource=sakaipassword
 
+# Colon (":") separated list of tables to cache. Start the list with a colon. Use :all: to cache all tables
+# DEFAULT: none (null)
+# DbFlatPropertiesCache= 
+
+## HSQLDB settings (active/in-memory by DEFAULT)
+# vendor@org.sakaiproject.db.api.SqlService=hsqldb
+# driverClassName@javax.sql.BaseDataSource=org.hsqldb.jdbcDriver
+# hibernate.dialect=org.hibernate.dialect.HSQLDialect
+# validationQuery@javax.sql.BaseDataSource=select 1 from INFORMATION_SCHEMA.SYSTEM_USERS
+# Two hsqldb storage options: first for in-memory (no persistence between runs), second for disk based.
+# url@javax.sql.BaseDataSource=jdbc:hsqldb:mem:sakai
+# url@javax.sql.BaseDataSource=jdbc:hsqldb:file:${sakai.home}db/sakai.db
+
+## MySQL settings
+vendor@org.sakaiproject.db.api.SqlService=mysql
+driverClassName@javax.sql.BaseDataSource=com.mysql.jdbc.Driver
+# driverClassName@javax.sql.BaseDataSource=org.mariadb.jdbc.Driver
+hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+url@javax.sql.BaseDataSource=jdbc:mysql://localhost:3306/sakaidb?useUnicode=true&characterEncoding=UTF-8&useServerPrepStmts=false&cachePrepStmts=true&prepStmtCacheSize=4096&prepStmtCacheSqlLimit=4096
+validationQuery@javax.sql.BaseDataSource=select 1 from DUAL
+defaultTransactionIsolationString@javax.sql.BaseDataSource=TRANSACTION_READ_COMMITTED
+
+# To get accurate MySQL query throughput statistics (e.g. for graphing) from the mysql command show status like 'Com_select'
+# This alternate validation query should be used so as not to increment the query counter unnecessarily when validating the connection:
+# validationQuery@javax.sql.BaseDataSource=show variables like 'version'
+```
 
 
 
