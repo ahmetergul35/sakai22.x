@@ -1,9 +1,9 @@
 <!-- GETTING STARTED -->
-## <div align="center"><p>Sakai 22.x Install Guide - Ram:16GB Centos7x64</p> </div>
+## <div align="center"><p>SAKAI 22.x INSTALL GUIDE - RAM:16GB CENTOS7x64</p></div>
 Sakai ayrı bir sunucuya mysql ayrı bir sunucuya kurulacaktır.
 Öncelikle her iki sunucuda da şu komutları çalıştırın;
 
-## Bileşenler
+## Giriş
 ```sh
 yum -y install vim nano wget git epel-release
 service firewalld stop
@@ -58,9 +58,12 @@ Java'nın sunucumuzda kurulu olup olmadığını <b>java -version</b> komutu ile
 ```sh
 java -version
 ```
-* java version "1.8.0_271"  
-* Java(TM) SE Runtime Environment (build 1.8.0_271-b11)  
-* Java HotSpot(TM) 64-Bit Server VM (build 25.271-b11, mixed mode)  
+Ekran çıktısı şu şekilde olmalıdır;
+```sh
+java version "1.8.0_271"  
+Java(TM) SE Runtime Environment (build 1.8.0_271-b11)  
+Java HotSpot(TM) 64-Bit Server VM (build 25.271-b11, mixed mode)
+```
 
 Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
 ```sh
@@ -99,7 +102,6 @@ vim ~/.bashrc
 ```
 
 <b>.bashrc</b> dosyasının içeriği aşağıdaki gibi olmalıdır. “16Gb ram için değer”!
-
 ```sh
 # Maven
 export MAVEN_HOME=/opt/maven  
@@ -120,7 +122,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 ```
 <b>.baschrc</b> dosyamızı reload edelim;
-
 ```sh
 source ~/.bashrc
 ```
@@ -141,8 +142,7 @@ OS name: "linux", version: "3.10.0-514.6.1.el7.x86_64", arch: "amd64", family: "
 ```
 
 ## TOMCAT Kurulumu
-<b>download</b> dizinine indirdiğimiz <b>apache-tomcat-8.0.32.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
-
+<b>download</b> dizinine indirdiğimiz <b>apache-tomcat-9.0.43.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
 ```sh
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
@@ -152,9 +152,275 @@ cd /opt
 ln -s apache-maven-3.6.3/ maven
 vim ~/.bashrc
 ```
-  
-  
-  
+<b>.baschrc</b> dosyamıza ekleyelim;
+```sh
+# Tomcat
+export CATALINA_HOME=/opt/tomcat
+export PATH=$PATH:$CATALINA_HOME/bin
+```
+Ayarları reload edelim ve tomcat’i başlatalım;
+```sh
+source ~/.bashrc
+/opt/tomcat/bin/startup.sh
+```
+Aşağıdaki gibi ekran çıktısı almanız gerekiyor.
+```sh
+Using CATALINA_BASE:   /opt/tomcat  
+Using CATALINA_HOME:   /opt/tomcat  
+Using CATALINA_TMPDIR: /opt/tomcat/temp  
+Using JRE_HOME:        /opt/jdk1.8.0_271/jre  
+Using CLASSPATH:       /opt/tomcat/bin/bootstrap.jar:/opt/tomcat/bin/tomcat-juli.jar  
+Tomcat started.
+```
+Aşağıdaki komut ile bir problem olup olmadığına bakabilirsiniz;
+```sh
+tail -f /opt/tomcat/logs/catalina.out
+```
+Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
+```sh
+sudo /opt/tomcat/bin/shutdown.sh
+```
+## MySQL Kurulumu
+<b>MySQL</b> sunucusuna geçin;
+```sh
+yum -y install vim nano wget git epel-release
+service firewalld stop
+chkconfig firewalld off
+mkdir ~/download
+cd ~/download
+wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+ls -l /etc/yum.repos.d/mysql-community* 
+```
+Ekran çıktısı aşağıdaki gibi olmalıdır.
+```sh
+-rw-r--r--. 1 root root 1209 Jan 29  2014 /etc/yum.repos.d/mysql-community.repo
+-rw-r--r--. 1 root root 1060 Jan 29  2014 /etc/yum.repos.d/mysql-community-source.repo
+```
+Repolarımız olduğuna göre mysql sunucusunu kurabiliriz.
+```sh
+yum -y install mysql-server
+```
+Mysql'i başlatalım.
+```sh
+systemctl start mysqld
+systemctl status mysqld
+```
+Mysql'i daha güvenli hale getirmek için aşağıdaki komutu kullanıp sırasıyla adımları izleyelim.
+```sh
+mysql_secure_installation
+```
+* Önce root şifresi soracak şifre “boş” olduğu için birşey yazmadan Enter tuşuna basın.
+* Root şifresini belirtmek isteyip istemediğimizi soracak Y harfini yazıp Enter'a basın.
+* Root şifresini yazıp Enter'a basın.
+* Root şifresini tekrar yazıp Enter'a basın.
+* Remove anonymous users? Y harfine basıp Enter'a basın.
+* Mysql sunucusuna uzaktan bağlantı kapatılsın mı? Y harfine basıp Enter'a basın.
+* Test veritabanını ve erişimlerini sileyim mi? Y harfine basıp Enter'a basın.
+* Tablo ayrıcalıklarını yeniden yükle? Y harfine basıp Enter'a basın.
+```sh
+systemctl restart mysqld
+```
+<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
+```sh
+cd ~/download
+wget http://linuxpanel.net/mysql-connector-java-8.0.19.jar
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
+```
+
+## SAKAI için TOMCAT ayarları
+<b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
+
+<b>setenv.sh</b> dosyasını oluşturalım;
+```sh
+cd /opt/tomcat/bin
+vim setenv.sh
+```
+<b>setenv.sh</b> dosyasına aşağıdaki parametlereri ekleyelim;
+```sh
+export JAVA_OPTS="-server -d64 -Xms1g -Xmx2g -Djava.awt.headless=true -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC"
+JAVA_OPTS="$JAVA_OPTS -Dhttp.agent=Sakai"
+JAVA_OPTS="$JAVA_OPTS -Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false"
+JAVA_OPTS="$JAVA_OPTS -Dsakai.security=$CATALINA_HOME/sakai/"
+JAVA_OPTS="$JAVA_OPTS -Duser.timezone=Etc/GMT-3"
+JAVA_OPTS="$JAVA_OPTS -Dsakai.cookieName=SAKAI2SESSIONID"
+JAVA_OPTS="$JAVA_OPTS -Duser.language=tr"
+JAVA_OPTS="$JAVA_OPTS -Duser.region=TR"
+JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+```
+<b>setenv.sh</b> dosyasına çalıştırma izni verelim ve <b>server.xml</b> dosyasına <b>UTF-8</b> desteği ekleyelim.
+```sh
+chmod a+x *.sh
+cd ../conf
+vim server.xml
+```
+Önceki;
+```sh
+<Connector port="8080" protocol="HTTP/1.1"  
+               connectionTimeout="20000"
+               redirectPort="8443" />
+```
+Sonraki;
+```sh
+<Connector port="8080" protocol="HTTP/1.1"  
+               connectionTimeout="20000"
+               redirectPort="8443" URIEncoding="UTF-8"/>
+```
+<b>TOMCAT</b>'in <b>webapps</b> dizini altındaki varsayılan dosya ve dizinlerini temizleyelim;
+```sh
+cd ..
+rm -rf webapps/*
+```
+Ardından sakai'nin hatasız başlaması için <b>catalina.properties</b> dosyası içindeki <b>common.loader</b>, <b>server.loader</b>, <b>shared.loader</b> bölümleri aşağıdaki gibi düzenleyelim.
+```sh
+# pwd
+/opt/tomcat
+```
+```sh
+vim conf/catalina.properties
+```
+```sh
+common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
+
+#
+# List of comma-separated paths defining the contents of the "server"
+# classloader. Prefixes should be used to define what is the repository type.
+# Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
+# If left as blank, the "common" loader will be used as Catalina's "server"
+# loader.
+# Examples:
+#     "foo": Add this folder as a class repository
+#     "foo/*.jar": Add all the JARs of the specified folder as class
+#                  repositories
+#     "foo/bar.jar": Add bar.jar as a class repository
+#
+# Note: Values may be enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
+server.loader=
+
+#
+# List of comma-separated paths defining the contents of the "shared"
+# classloader. Prefixes should be used to define what is the repository type.
+# Path may be relative to the CATALINA_BASE path or absolute. If left as blank,
+# the "common" loader will be used as Catalina's "shared" loader.
+# Examples:
+#     "foo": Add this folder as a class repository
+#     "foo/*.jar": Add all the JARs of the specified folder as class
+#                  repositories
+#     "foo/bar.jar": Add bar.jar as a class repository
+# Please note that for single jars, e.g. bar.jar, you need the URL form
+# starting with file:.
+#
+# Note: Values may be enclosed in double quotes ("...") in case either the
+#       ${catalina.base} path or the ${catalina.home} path contains a comma.
+#       Because double quotes are used for quoting, the double quote character
+#       may not appear in a path.
+shared.loader=
+```
+## TOMCAT'i hızlı başlatmak;
+```sh
+vim /opt/tomcat/conf/context.xml
+```
+Context altına şu şekilde ekleyin;
+```sh
+<Context>
+    <JarScanner>
+    <JarScanFilter defaultPluggabilityScan="false" />
+    </JarScanner>
+```
+## SAKAI Kurulumu;
+<b>Sakai</b> dosyalarını git ile indirip kurmak istediğimiz <b>branch</b> üzerine geçiş yapalım. Örneğin <b>21</b> versiyonun son hali için <b>21.x</b> diyebilirsiniz. Biz <b>master</b> dizinine geçiş yapıp daha release olmamış <b>22</b> sürümünü kuracağız.
+
+```sh
+cd /opt/tomcat
+git clone https://github.com/sakaiproject/sakai.git
+cd sakai && git checkout master
+```
+Master dizinine geçiş yapıp maven ile proje kütüphanelerini indiriyoruz;
+```sh
+cd /opt/tomcat/sakai/master
+mvn clean install
+```
+Ekran çıktısı aşağıdaki gibi olmalıdır. <b>BUILD SUCCESS</b> ifadesini göremiyorsanız bir şeyler ters gitmiş demektir. Dönüp adımları tekrar kontrol edin!
+```sh
+[INFO] Installing /opt/apache-tomcat-9.0.43/sakai/master/pom.xml to /root/.m2/repository/org/sakaiproject/master/SAKAI22-SNAPSHOT/master-22-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 55.236 s
+[INFO] Finished at: 2021-01-06T20:02:59+02:00
+[INFO] Final Memory: 13M/661M
+[INFO] ------------------------------------------------------------------------
+```
+Sonraki adımda bir üst dizine geçip <b>SAKAI</b>'yi derliyoruz;
+```sh
+cd ..
+mvn clean install sakai:deploy -Dmaven.tomcat.home=/opt/tomcat -Dsakai.home=/opt/tomcat/sakai -Djava.net.preferIPv4Stack=true -Dmaven.test.skip=true
+```
+Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS</b> ifadesini görmeniz gerekmektedir.
+```sh
+[INFO] Sakai Soap (CXF) ................................... SUCCESS [ 12.892 s]
+[INFO] Sakai base pom ..................................... SUCCESS [  0.004 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10:31 min
+[INFO] Finished at: 2021-01-06T20:22:22+02:00
+[INFO] Final Memory: 532M/973M
+[INFO] ------------------------------------------------------------------------
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
