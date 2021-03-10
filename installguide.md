@@ -55,9 +55,9 @@ java -version
 ```
 Ekran çıktısı şu şekilde olmalıdır;
 ```sh
-java version "1.8.0_271"  
-Java(TM) SE Runtime Environment (build 1.8.0_271-b11)  
-Java HotSpot(TM) 64-Bit Server VM (build 25.271-b11, mixed mode)
+java version "1.8.0_271"
+Java(TM) SE Runtime Environment (build 1.8.0_271-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.271-b09, mixed mode)
 ```
 
 Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
