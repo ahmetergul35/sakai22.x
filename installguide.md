@@ -1,5 +1,5 @@
 <!-- GETTING STARTED -->
-## Sakai 22.x Install Guide - Ram:16GB Centos7x64
+## <div align="center"><p>Sakai 22.x Install Guide - Ram:16GB Centos7x64</p> </div>
 Sakai ayrı bir sunucuya mysql ayrı bir sunucuya kurulacaktır.
 Öncelikle her iki sunucuda da şu komutları çalıştırın;
 
