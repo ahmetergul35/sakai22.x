@@ -170,20 +170,6 @@ Aşağıdaki komut ile bir problem olup olmadığına bakabilirsiniz;
 ```sh
 tail -f /opt/tomcat/logs/catalina.out
 ```
-Aşağıdaki gibi bir çıktı almanız gerekiyor;
-```sh
-[root@localhost opt]# tail -f /opt/tomcat/logs/catalina.out
-10-Mar-2021 15:47:25.097 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/apache-tomcat-9.0.43/webapps/docs]
-10-Mar-2021 15:47:25.124 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/apache-tomcat-9.0.43/webapps/docs] has finished in [27] ms
-10-Mar-2021 15:47:25.124 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/apache-tomcat-9.0.43/webapps/examples]
-10-Mar-2021 15:47:25.447 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/apache-tomcat-9.0.43/webapps/examples] has finished in [323] ms
-10-Mar-2021 15:47:25.447 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/apache-tomcat-9.0.43/webapps/host-manager]
-10-Mar-2021 15:47:25.478 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/apache-tomcat-9.0.43/webapps/host-manager] has finished in [30] ms
-10-Mar-2021 15:47:25.478 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [/opt/apache-tomcat-9.0.43/webapps/manager]
-10-Mar-2021 15:47:25.503 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [/opt/apache-tomcat-9.0.43/webapps/manager] has finished in [24] ms
-10-Mar-2021 15:47:25.507 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
-10-Mar-2021 15:47:25.519 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [774] milliseconds
-```
 Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
 ```sh
 sudo /opt/tomcat/bin/shutdown.sh
