@@ -19,15 +19,15 @@ cd ~/download
 
 <b>Download</b> dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip <b>tar</b> komutu ile açıyoruz.
 ```sh
-wget http://linuxpanel.net/sakai/jdk-8u271-linux-x64.tar.gz
-tar xzf jdk-8u271-linux-x64.tar.gz
-mv ~/download/jdk1.8.0_271/ /opt/
-cd /opt/jdk1.8.0_271/
+wget http://linuxpanel.net/sakai/jdk-8u281-linux-x64.tar.gz
+tar xzf jdk-8u281-linux-x64.tar.gz
+mv ~/download/jdk1.8.0_281/ /opt/
+cd /opt/jdk1.8.0_281/
 ```
   
 Aşağıdaki komutu çalıştırdıktan sonra bu şekilde  bir ekran çıktısı almanız gerekmektedir. Sizin sunucunuzda başka java sürümü yok ise sadece <b>1</b> sürüm ile karşılaşabilirsiniz.
 ```sh
-alternatives --install /usr/bin/java java /opt/jdk1.8.0_271/bin/java 2
+alternatives --install /usr/bin/java java /opt/jdk1.8.0_281/bin/java 2
 alternatives --config java
 ```
 
@@ -35,18 +35,18 @@ alternatives --config java
 There are 4 programs which provide 'java'.  
  Selection    Command
 -------------------------------------------
-*+ 1           /opt/jdk1.8.0_271/bin/java
+*+ 1           /opt/jdk1.8.0_281/bin/java
 
 Enter to keep the current selection[+], or type selection number: 1
 ```
 
 
-Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi <b>javac</b> ve <b>jar</b> komutlarının sorunsuz çalışması için yollarını belirlemeye. <b>/opt/jdk1.8.0_271</b> dizininin içinde aşağıdaki komutları çalıştırıyoruz.
+Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi <b>javac</b> ve <b>jar</b> komutlarının sorunsuz çalışması için yollarını belirlemeye. <b>/opt/jdk1.8.0_281</b> dizininin içinde aşağıdaki komutları çalıştırıyoruz.
 ```sh
-alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_271/bin/jar 2
-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_271/bin/javac 2
-alternatives --set jar /opt/jdk1.8.0_271/bin/jar
-alternatives --set javac /opt/jdk1.8.0_271/bin/javac
+alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_281/bin/jar 2
+alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_281/bin/javac 2
+alternatives --set jar /opt/jdk1.8.0_281/bin/jar
+alternatives --set javac /opt/jdk1.8.0_281/bin/javac
 ```
   
 Java'nın sunucumuzda kurulu olup olmadığını <b>java -version</b> komutu ile kontrol edelim.
@@ -55,9 +55,9 @@ java -version
 ```
 Ekran çıktısı şu şekilde olmalıdır;
 ```sh
-java version "1.8.0_271"
-Java(TM) SE Runtime Environment (build 1.8.0_271-b09)
-Java HotSpot(TM) 64-Bit Server VM (build 25.271-b09, mixed mode)
+java version "1.8.0_281"
+Java(TM) SE Runtime Environment (build 1.8.0_281-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 ```
 
 Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
@@ -67,9 +67,9 @@ vim ~/.bashrc
 
 ```sh
 # Java
-export JAVA_HOME=/opt/jdk1.8.0_271  
-export JRE_HOME=/opt/jdk1.8.0_271/jre  
-export PATH=$PATH:/opt/jdk1.8.0_271/bin:/opt/jdk1.8.0_271/jre/bin
+export JAVA_HOME=/opt/jdk1.8.0_281
+export JRE_HOME=/opt/jdk1.8.0_281/jre
+export PATH=$PATH:/opt/jdk1.8.0_281/bin:/opt/jdk1.8.0_281/jre/bin
 
 # .bashrc
 # User specific aliases and functions
@@ -104,9 +104,9 @@ export PATH=$PATH:$MAVEN_HOME/bin
 export MAVEN_OPTS='-Xms1024m -Xmx2048m -Djava.util.Arrays.useLegacyMergeSort=true'
 
 # Java
-export JAVA_HOME=/opt/jdk1.8.0_271  
-export JRE_HOME=/opt/jdk1.8.0_271/jre  
-export PATH=$PATH:/opt/jdk1.8.0_271/bin:/opt/jdk1.8.0_271/jre/bin
+export JAVA_HOME=/opt/jdk1.8.0_281
+export JRE_HOME=/opt/jdk1.8.0_281/jre
+export PATH=$PATH:/opt/jdk1.8.0_281/bin:/opt/jdk1.8.0_281/jre/bin
 
 # .bashrc
 
@@ -130,7 +130,7 @@ Aşağıdaki gibi bir çıktı almamız gerekiyor;
 ```sh
 Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
 Maven home: /opt/maven
-Java version: 1.8.0_271, vendor: Oracle Corporation, runtime: /opt/jdk1.8.0_271/jre
+Java version: 1.8.0_281, vendor: Oracle Corporation, runtime: /opt/jdk1.8.0_281/jre
 Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "3.10.0-1160.15.2.el7.x86_64", arch: "amd64", family: "unix"
 ```
@@ -159,11 +159,11 @@ source ~/.bashrc
 ```
 Aşağıdaki gibi ekran çıktısı almanız gerekiyor.
 ```sh
-Using CATALINA_BASE:   /opt/tomcat  
-Using CATALINA_HOME:   /opt/tomcat  
-Using CATALINA_TMPDIR: /opt/tomcat/temp  
-Using JRE_HOME:        /opt/jdk1.8.0_271/jre  
-Using CLASSPATH:       /opt/tomcat/bin/bootstrap.jar:/opt/tomcat/bin/tomcat-juli.jar  
+Using CATALINA_BASE:   /opt/tomcat
+Using CATALINA_HOME:   /opt/tomcat
+Using CATALINA_TMPDIR: /opt/tomcat/temp
+Using JRE_HOME:        /opt/jdk1.8.0_281/jre
+Using CLASSPATH:       /opt/tomcat/bin/bootstrap.jar:/opt/tomcat/bin/tomcat-juli.jar
 Tomcat started.
 ```
 Aşağıdaki komut ile bir problem olup olmadığına bakabilirsiniz;
@@ -245,13 +245,13 @@ vim server.xml
 ```
 Önceki;
 ```sh
-<Connector port="8080" protocol="HTTP/1.1"  
+<Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                redirectPort="8443" />
 ```
 Sonraki;
 ```sh
-<Connector port="8080" protocol="HTTP/1.1"  
+<Connector port="8080" protocol="HTTP/1.1"
                connectionTimeout="20000"
                redirectPort="8443" URIEncoding="UTF-8"/>
 ```
