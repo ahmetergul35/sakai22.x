@@ -11,13 +11,13 @@ chkconfig firewalld off
 ```
   
 ## JAVA JDK Kurulumu
-Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğimiz bir <b>download</b> dizini oluşturalım.
+1. Sakai sunucusuna geçin; Kurulum için gerekli dosyaları indirebileceğimiz bir <b>download</b> dizini oluşturalım.
 ```sh
 mkdir ~/download  
 cd ~/download
 ```
 
-<b>Download</b> dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip <b>tar</b> komutu ile açıyoruz.
+2. <b>Download</b> dizinine geçiş yaptıktan sonra aşağıdaki dosyaları indirip <b>tar</b> komutu ile açıyoruz.
 ```sh
 wget http://linuxpanel.net/sakai/jdk-8u281-linux-x64.tar.gz
 tar xzf jdk-8u281-linux-x64.tar.gz
@@ -25,7 +25,7 @@ mv ~/download/jdk1.8.0_281/ /opt/
 cd /opt/jdk1.8.0_281/
 ```
   
-Aşağıdaki komutu çalıştırdıktan sonra bu şekilde  bir ekran çıktısı almanız gerekmektedir. Sizin sunucunuzda başka java sürümü yok ise sadece <b>1</b> sürüm ile karşılaşabilirsiniz.
+3. Aşağıdaki komutu çalıştırdıktan sonra bu şekilde  bir ekran çıktısı almanız gerekmektedir. Sizin sunucunuzda başka java sürümü yok ise sadece <b>1</b> sürüm ile karşılaşabilirsiniz.
 ```sh
 alternatives --install /usr/bin/java java /opt/jdk1.8.0_281/bin/java 2
 alternatives --config java
@@ -41,7 +41,7 @@ Enter to keep the current selection[+], or type selection number: 1
 ```
 
 
-Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi <b>javac</b> ve <b>jar</b> komutlarının sorunsuz çalışması için yollarını belirlemeye. <b>/opt/jdk1.8.0_281</b> dizininin içinde aşağıdaki komutları çalıştırıyoruz.
+4. Sunucumuza java'yı başarılı bir şekilde kurduk. Sıra geldi <b>javac</b> ve <b>jar</b> komutlarının sorunsuz çalışması için yollarını belirlemeye. <b>/opt/jdk1.8.0_281</b> dizininin içinde aşağıdaki komutları çalıştırıyoruz.
 ```sh
 alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_281/bin/jar 2
 alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_281/bin/javac 2
@@ -49,18 +49,18 @@ alternatives --set jar /opt/jdk1.8.0_281/bin/jar
 alternatives --set javac /opt/jdk1.8.0_281/bin/javac
 ```
   
-Java'nın sunucumuzda kurulu olup olmadığını <b>java -version</b> komutu ile kontrol edelim.
+5. Java'nın sunucumuzda kurulu olup olmadığını <b>java -version</b> komutu ile kontrol edelim.
 ```sh
 java -version
 ```
-Ekran çıktısı şu şekilde olmalıdır;
+6. Ekran çıktısı şu şekilde olmalıdır;
 ```sh
 java version "1.8.0_281"
 Java(TM) SE Runtime Environment (build 1.8.0_281-b09)
 Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 ```
 
-Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
+7. Sunucu yeniden başladığında bu çevresel değişkenlerin tanımlı olarak gelmesini istiyorsanız. <b>.bashrc</b> dosyasını aşağıdaki gibi düzenlemelisiniz.
 ```sh
 vim ~/.bashrc
 ```
@@ -85,7 +85,7 @@ fi
 ```
   
 ## MAVEN Kurulumu
-Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütüphane bağımlılığını ortadan kaldırmak için <b>Maven</b> kurulumuna geçelim.
+1. Sakai projesinin geliştirme ve kurulum adımlarını kolaylaştırmak ve kütüphane bağımlılığını ortadan kaldırmak için <b>Maven</b> kurulumuna geçelim.
 ```sh
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
@@ -96,7 +96,7 @@ ln -s apache-maven-3.6.3/ maven
 vim ~/.bashrc
 ```
 
-<b>.bashrc</b> dosyasının içeriği aşağıdaki gibi olmalıdır. “16Gb ram için değer”!
+2. <b>.bashrc</b> dosyasının içeriği aşağıdaki gibi olmalıdır. “16Gb ram için değer”!
 ```sh
 # Maven
 export MAVEN_HOME=/opt/maven  
@@ -116,17 +116,15 @@ alias rm='rm -i'
 alias cp='cp -i'  
 alias mv='mv -i'
 ```
-<b>.baschrc</b> dosyamızı reload edelim;
+3. <b>.baschrc</b> dosyamızı reload edelim;
 ```sh
 source ~/.bashrc
 ```
 
-Maven sürümümüzü kontrol edelim;
+4. Maven sürümümüzü kontrol edelim;
 ```sh
 mvn --version
 ```
-
-Aşağıdaki gibi bir çıktı almamız gerekiyor;
 ```sh
 Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
 Maven home: /opt/maven
@@ -136,7 +134,7 @@ OS name: "linux", version: "3.10.0-1160.15.2.el7.x86_64", arch: "amd64", family:
 ```
 
 ## TOMCAT Kurulumu
-<b>download</b> dizinine indirdiğimiz <b>apache-tomcat-9.0.43.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
+1. <b>download</b> dizinine indirdiğimiz <b>apache-tomcat-9.0.43.tar.gz</b> dosyasını tar komutu ile arşivden çıkartalım. Daha sonra mv komutu ile <b>/opt</b> dizinine taşıyalım <b>apache-tomcat-9.0.43</b> dizine <b>tomcat</b> ismiyle sembolik link verelim.
 ```sh
 cd ~/download
 wget https://kozyatagi.mirror.guzel.net.tr/apache/tomcat/tomcat-9/v9.0.43/bin/apache-tomcat-9.0.43.tar.gz
@@ -146,18 +144,18 @@ cd /opt
 ln -s apache-tomcat-9.0.43/ tomcat
 vim ~/.bashrc
 ```
-<b>.baschrc</b> dosyamıza ekleyelim;
+2. <b>.baschrc</b> dosyamıza ekleyelim;
 ```sh
 # Tomcat
 export CATALINA_HOME=/opt/tomcat
 export PATH=$PATH:$CATALINA_HOME/bin
 ```
-Ayarları reload edelim ve tomcat’i başlatalım;
+3. Ayarları reload edelim ve tomcat’i başlatalım;
 ```sh
 source ~/.bashrc
 /opt/tomcat/bin/startup.sh
 ```
-Aşağıdaki gibi ekran çıktısı almanız gerekiyor.
+4. Aşağıdaki gibi ekran çıktısı almanız gerekiyor.
 ```sh
 Using CATALINA_BASE:   /opt/tomcat
 Using CATALINA_HOME:   /opt/tomcat
@@ -166,17 +164,17 @@ Using JRE_HOME:        /opt/jdk1.8.0_281/jre
 Using CLASSPATH:       /opt/tomcat/bin/bootstrap.jar:/opt/tomcat/bin/tomcat-juli.jar
 Tomcat started.
 ```
-Aşağıdaki komut ile bir problem olup olmadığına bakabilirsiniz;
+5. Aşağıdaki komut ile bir problem olup olmadığına bakabilirsiniz;
 ```sh
 tail -f /opt/tomcat/logs/catalina.out
 ```
-Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
+6. Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
 ```sh
 sudo /opt/tomcat/bin/shutdown.sh
 ```
 
 ## MySQL Kurulumu
-<b>MySQL</b> sunucusuna geçin;
+1. <b>MySQL</b> sunucusuna geçin;
 ```sh
 yum -y install vim nano wget git epel-release
 service firewalld stop
@@ -187,21 +185,21 @@ wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 ls -l /etc/yum.repos.d/mysql-community* 
 ```
-Ekran çıktısı aşağıdaki gibi olmalıdır.
+2. Ekran çıktısı aşağıdaki gibi olmalıdır.
 ```sh
 -rw-r--r--. 1 root root 1209 Jan 29  2014 /etc/yum.repos.d/mysql-community.repo
 -rw-r--r--. 1 root root 1060 Jan 29  2014 /etc/yum.repos.d/mysql-community-source.repo
 ```
-Repolarımız olduğuna göre mysql sunucusunu kurabiliriz.
+3. Repolarımız olduğuna göre mysql sunucusunu kurabiliriz.
 ```sh
 yum -y install mysql-server
 ```
-Mysql'i başlatalım.
+4. Mysql'i başlatalım.
 ```sh
 systemctl start mysqld
 systemctl status mysqld
 ```
-Mysql'i daha güvenli hale getirmek için aşağıdaki komutu kullanıp sırasıyla adımları izleyelim.
+5. Mysql'i daha güvenli hale getirmek için aşağıdaki komutu kullanıp sırasıyla adımları izleyelim.
 ```sh
 mysql_secure_installation
 ```
@@ -218,14 +216,14 @@ systemctl restart mysqld
 ```
 
 ## SAKAI için TOMCAT ayarları
-<b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
+1. <b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
 
-<b>setenv.sh</b> dosyasını oluşturalım;
+2. <b>setenv.sh</b> dosyasını oluşturalım;
 ```sh
 cd /opt/tomcat/bin
 vim setenv.sh
 ```
-<b>setenv.sh</b> dosyasına aşağıdaki parametlereri ekleyelim;
+3. <b>setenv.sh</b> dosyasına aşağıdaki parametlereri ekleyelim;
 ```sh
 export JAVA_OPTS="-server -d64 -Xms2g -Xmx24g -Djava.awt.headless=true -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC"
 JAVA_OPTS="$JAVA_OPTS -Dhttp.agent=Sakai"
@@ -237,7 +235,7 @@ JAVA_OPTS="$JAVA_OPTS -Duser.region=TR"
 JAVA_OPTS="$JAVA_OPTS -Dsakai.cookieName=SAKAI2SESSIONID"
 JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8089 -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 ```
-<b>setenv.sh</b> dosyasına çalıştırma izni verelim ve <b>server.xml</b> dosyasına <b>UTF-8</b> desteği ekleyelim.
+4. <b>setenv.sh</b> dosyasına çalıştırma izni verelim ve <b>server.xml</b> dosyasına <b>UTF-8</b> desteği ekleyelim.
 ```sh
 chmod a+x *.sh
 cd ../conf
@@ -255,12 +253,12 @@ Sonraki;
                connectionTimeout="20000"
                redirectPort="8443" URIEncoding="UTF-8"/>
 ```
-<b>TOMCAT</b>'in <b>webapps</b> dizini altındaki varsayılan dosya ve dizinlerini temizleyelim;
+5. <b>TOMCAT</b>'in <b>webapps</b> dizini altındaki varsayılan dosya ve dizinlerini temizleyelim;
 ```sh
 cd ..
 rm -rf webapps/*
 ```
-<b>TOMCAT</b>'in sağlıklı başlaması için aşağıdaki klasörleri oluşturuyoruz;
+6. <b>TOMCAT</b>'in sağlıklı başlaması için aşağıdaki klasörleri oluşturuyoruz;
 ```sh
 mkdir -p shared/classes shared/lib common/classes common/lib server/classes server/lib
 ```
@@ -276,19 +274,19 @@ Context altına şu şekilde ekleyin;
     </JarScanner>
 ```
 ## SAKAI Kurulumu;
-<b>Sakai</b> dosyalarını git ile indirip kurmak istediğimiz <b>branch</b> üzerine geçiş yapalım. Örneğin <b>21</b> versiyonun son hali için <b>21.x</b> diyebilirsiniz. Biz <b>master</b> dizinine geçiş yapıp daha release olmamış <b>22</b> sürümünü kuracağız.
+1. <b>Sakai</b> dosyalarını git ile indirip kurmak istediğimiz <b>branch</b> üzerine geçiş yapalım. Örneğin <b>21</b> versiyonun son hali için <b>21.x</b> diyebilirsiniz. Biz <b>master</b> dizinine geçiş yapıp daha release olmamış <b>22</b> sürümünü kuracağız.
 
 ```sh
 cd /opt/tomcat
 git clone https://github.com/sakaiproject/sakai.git
 cd sakai && git checkout master
 ```
-Master dizinine geçiş yapıp maven ile proje kütüphanelerini indiriyoruz;
+2. Master dizinine geçiş yapıp maven ile proje kütüphanelerini indiriyoruz;
 ```sh
 cd /opt/tomcat/sakai/master
 mvn clean install
 ```
-Ekran çıktısı aşağıdaki gibi olmalıdır. <b>BUILD SUCCESS</b> ifadesini göremiyorsanız bir şeyler ters gitmiş demektir. Dönüp adımları tekrar kontrol edin!
+3. Ekran çıktısı aşağıdaki gibi olmalıdır. <b>BUILD SUCCESS</b> ifadesini göremiyorsanız bir şeyler ters gitmiş demektir. Dönüp adımları tekrar kontrol edin!
 ```sh
 [INFO] Installing /opt/apache-tomcat-9.0.43/sakai/master/pom.xml to /root/.m2/repository/org/sakaiproject/master/SAKAI22-SNAPSHOT/master-22-SNAPSHOT.pom
 [INFO] ------------------------------------------------------------------------
@@ -299,12 +297,12 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. <b>BUILD SUCCESS</b> ifadesini 
 [INFO] Final Memory: 13M/661M
 [INFO] ------------------------------------------------------------------------
 ```
-Sonraki adımda bir üst dizine geçip <b>SAKAI</b>'yi derliyoruz;
+4. Sonraki adımda bir üst dizine geçip <b>SAKAI</b>'yi derliyoruz;
 ```sh
 cd ..
 mvn clean install sakai:deploy -Dmaven.tomcat.home=/opt/tomcat -Dsakai.home=/opt/tomcat/sakai -Djava.net.preferIPv4Stack=true -Dmaven.test.skip=true
 ```
-Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS</b> ifadesini görmeniz gerekmektedir.
+5. Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS</b> ifadesini görmeniz gerekmektedir.
 ```sh
 [INFO] Sakai Soap (CXF) ................................... SUCCESS [ 12.892 s]
 [INFO] Sakai base pom ..................................... SUCCESS [  0.004 s]
@@ -317,14 +315,14 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
 ```
 <!-- SAKAI MySQL Settings -->
-<b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
+6. <b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
 ```sh
 cd ~/download
 wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
 ```
-<b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
+7. <b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
 ```sh
 cp /etc/my.cnf /etc/my.cnf.orj
 vim /etc/my.cnf
@@ -374,18 +372,16 @@ max_heap_table_size             = 128M
 tmp-table-size                  = 32M
 innodb_file_per_table           = 1
 
-
-
 [mysqld_safe]
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 ```
-<b>MySQL</b> servisini yeniden başlatalım ve servisin sağlıklı çalıştığından emin olalım;
+8. <b>MySQL</b> servisini yeniden başlatalım ve servisin sağlıklı çalıştığından emin olalım;
 ```sh
 service mysqld restart
 service mysqld status
 ```
-<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
+9. <b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
 ```sh
 mysql -u root -p
 Enter password:
@@ -394,12 +390,12 @@ mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakai
 mysql> FLUSH PRIVILEGES;
 mysql> quit
 ```
-Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
+10. Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
 ```sh
 cp /opt/tomcat/sakai/config/configuration/bundles/src/bundle/org/sakaiproject/config/bundle/default.sakai.properties /opt/tomcat/sakai/sakai.properties
 vim /opt/tomcat/sakai/sakai.properties
 ```
-Veritabanı ile ilgili tanımlamaları yapmak için aşağıdaki gibi satırları düzenleyin;
+11. Veritabanı ile ilgili tanımlamaları yapmak için aşağıdaki gibi satırları düzenleyin;
 ```sh
 # The database username and password. The defaults are for the out-of-the-box HSQLDB.  
 # Change to match your setup. Do NOT enable access to your database without a password.
@@ -433,16 +429,16 @@ defaultTransactionIsolationString@javax.sql.BaseDataSource=TRANSACTION_READ_COMM
 # This alternate validation query should be used so as not to increment the query counter unnecessarily when validating the connection:
 # validationQuery@javax.sql.BaseDataSource=show variables like 'version'
 ```
-<b>SAKAI</b>'yi başlatıyoruz;
+12. <b>SAKAI</b>'yi başlatıyoruz;
 ```sh
 catalina.sh start
 ```
-Catalina.out ile tomcat loglarına bakıyoruz;
+13. Catalina.out ile tomcat loglarına bakıyoruz;
 ```sh
 tail -f /opt/tomcat/logs/catalina.out
 ```
 
-Ekran çıktısı aşağıdaki gibi olmalıdır.
+14. Ekran çıktısı aşağıdaki gibi olmalıdır.
 ```sh
 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 44804 ms
 ```
@@ -450,7 +446,6 @@ INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 44804 m
 http://127.0.0.1:8080/portal
 <!-- CONTACT -->
 ## Contact
-
 A. Volkan ERGÜL - ahmet.ergul@gmail.com
 
 Project Link: [https://github.com/ahmetergul35/sakai22-SNAPSHOT/blob/main/installguide.md](https://github.com/ahmetergul35/sakai22-SNAPSHOT/blob/main/installguide.md)
