@@ -1,5 +1,5 @@
 <!-- GETTING STARTED -->
-## <div align="center"><p>SAKAI 22.x INSTALL GUIDE - RAM:16GB CENTOS7x64</p></div>
+## <div align="center"><p>SAKAI 22.x INSTALL GUIDE - RAM:32GB CENTOS7x64</p></div>
 Sakai ayrı bir sunucuya mysql ayrı bir sunucuya kurulacaktır.
 Öncelikle her iki sunucuda da şu komutları çalıştırın;
 
@@ -223,7 +223,7 @@ systemctl restart mysqld
 cd /opt/tomcat/bin
 vim setenv.sh
 ```
-3. <b>setenv.sh</b> dosyasına aşağıdaki parametlereri ekleyelim;
+3. <b>setenv.sh</b> dosyasına aşağıdaki parametlereri ekleyelim; (32Gb Fiziksel Ram için Xmx 24Gb değer verilebilir)
 ```sh
 export JAVA_OPTS="-server -d64 -Xms2g -Xmx24g -Djava.awt.headless=true -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:+DisableExplicitGC"
 JAVA_OPTS="$JAVA_OPTS -Dhttp.agent=Sakai"
