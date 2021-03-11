@@ -174,10 +174,7 @@ Tomcat'i durdurmak için shutdown.sh dosyayı çalıştırabilirsiniz.
 ```sh
 sudo /opt/tomcat/bin/shutdown.sh
 ```
-<b>TOMCAT</b>'in sağlıklı başlaması için aşağıdaki klasörleri oluşturuyoruz;
-```sh
-mkdir -p shared/classes shared/lib common/classes common/lib server/classes server/lib
-```
+
 ## MySQL Kurulumu
 <b>MySQL</b> sunucusuna geçin;
 ```sh
@@ -322,6 +319,10 @@ Sonraki;
 ```sh
 cd ..
 rm -rf webapps/*
+```
+<b>TOMCAT</b>'in sağlıklı başlaması için aşağıdaki klasörleri oluşturuyoruz;
+```sh
+mkdir -p shared/classes shared/lib common/classes common/lib server/classes server/lib
 ```
 ## TOMCAT'i hızlı başlatmak;
 ```sh
