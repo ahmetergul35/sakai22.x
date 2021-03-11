@@ -216,67 +216,7 @@ mysql_secure_installation
 ```sh
 systemctl restart mysqld
 ```
-<b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
-```sh
-cp /etc/my.cnf /etc/my.cnf.orj
-vim /etc/my.cnf
-```
-```sh
-# For advice on how to change settings please see
-# http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html
 
-[mysqld]
-#
-# Remove leading # and set to the amount of RAM for the most important data
-# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
-# innodb_buffer_pool_size = 128M
-#
-# Remove leading # to turn on a very important data integrity option: logging
-# changes to the binary log between backups.
-# log_bin
-#
-# Remove leading # to set options mainly useful for reporting servers.
-# The server defaults are faster for transactions and fast SELECTs.
-# Adjust sizes as needed, experiment to find the optimal values.
-# join_buffer_size = 128M
-# sort_buffer_size = 2M
-# read_rnd_buffer_size = 2M
-skip-name-resolve
-open_files_limit                = 65536
-thread-cache-size               = 100
-table-definition-cache          = 4096
-table-open-cache                = 10000
-datadir                         = /var/lib/mysql
-socket                          = /var/lib/mysql/mysql.sock
-symbolic-links                  = 0
-max_connections                 = 65536
-thread_cache_size               = 100
-key_buffer_size                 = 32M
-low_priority_updates            = 1
-max_allowed_packet              = 20M
-query_cache_size                = 128M
-default-storage-engine          = InnoDB
-lower_case_table_names          = 1
-# innodb_buffer_pool_size = Fiziksel Ram'in %70'i
-innodb_buffer_pool_size         = 6G
-innodb_thread_concurrency       = 50
-innodb_flush_method             = O_DIRECT
-local-infile                    = 0
-max_heap_table_size             = 128M
-tmp-table-size                  = 32M
-innodb_file_per_table           = 1
-
-
-
-[mysqld_safe]
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid
-```
-<b>MySQL</b> servisini yeniden başlatalım ve servisin sağlıklı çalıştığından emin olalım;
-```sh
-service mysqld restart
-service mysqld status
-```
 ## SAKAI için TOMCAT ayarları
 <b>TOMCAT</b> başladığında hangi özellikler ile başlayacağını <b>setenv.sh</b> dosyası içinde belirliyoruz. Özelliklerden kastımız maximum kaç gb ram kullanacağı, varsayılan dil, timezone vs...
 
@@ -391,6 +331,67 @@ mysql> create database sakaidb default character set utf8;
 mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
 mysql> FLUSH PRIVILEGES;
 mysql> quit
+```
+<b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
+```sh
+cp /etc/my.cnf /etc/my.cnf.orj
+vim /etc/my.cnf
+```
+```sh
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+skip-name-resolve
+open_files_limit                = 65536
+thread-cache-size               = 100
+table-definition-cache          = 4096
+table-open-cache                = 10000
+datadir                         = /var/lib/mysql
+socket                          = /var/lib/mysql/mysql.sock
+symbolic-links                  = 0
+max_connections                 = 65536
+thread_cache_size               = 100
+key_buffer_size                 = 32M
+low_priority_updates            = 1
+max_allowed_packet              = 20M
+query_cache_size                = 128M
+default-storage-engine          = InnoDB
+lower_case_table_names          = 1
+# innodb_buffer_pool_size = Fiziksel Ram'in %70'i
+innodb_buffer_pool_size         = 6G
+innodb_thread_concurrency       = 50
+innodb_flush_method             = O_DIRECT
+local-infile                    = 0
+max_heap_table_size             = 128M
+tmp-table-size                  = 32M
+innodb_file_per_table           = 1
+
+
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+```
+<b>MySQL</b> servisini yeniden başlatalım ve servisin sağlıklı çalıştığından emin olalım;
+```sh
+service mysqld restart
+service mysqld status
 ```
 Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
 ```sh
