@@ -322,6 +322,7 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS
 cd ~/download
 wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
+cp mysql-connector-java-8.0.19.jar /opt/tomcat/lib/
 ```
 <b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
 ```sh
