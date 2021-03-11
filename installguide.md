@@ -323,15 +323,6 @@ cd ~/download
 wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
 ```
-<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
-```sh
-mysql -u root -p
-Enter password:
-mysql> create database sakaidb default character set utf8;
-mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
-mysql> FLUSH PRIVILEGES;
-mysql> quit
-```
 <b>MySQL</b> için <b>my.cnf</b> ayarları şu şekilde düzenlenebilir, ben burada <b>PERCONA</b>'dan faydalandım. Kurumunuzun ders, öğrenci, eğitmen sayılarına ve MySQL sunucunuzun fiziksel kapatisesine bağlı olarak düzenleme yapmak için sizde ücretsiz ölçekleme yapabilirsiniz. [PERCONA - The Database Performance Experts](https://www.percona.com/)
 ```sh
 cp /etc/my.cnf /etc/my.cnf.orj
@@ -392,6 +383,15 @@ pid-file=/var/run/mysqld/mysqld.pid
 ```sh
 service mysqld restart
 service mysqld status
+```
+<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
+```sh
+mysql -u root -p
+Enter password:
+mysql> create database sakaidb default character set utf8;
+mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
 ```
 Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
 ```sh
