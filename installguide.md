@@ -389,13 +389,22 @@ Ekran çıktısı aşağıdaki gibi olmalıdır. Bu kısımda da<b>BUILD SUCCESS
 [INFO] Final Memory: 532M/973M
 [INFO] ------------------------------------------------------------------------
 ```
+<!-- SAKAI MySQL Settings -->
 <b>JAVA</b> ile <b>MySQL</b> haberleşmesi için <b>mysql-connector</b> indirip tomcat'in kütüphanelerine ekleyelim.
 ```sh
 cd ~/download
 wget http://linuxpanel.net/sakai/mysql-connector-java-8.0.19.jar
 cp mysql-connector-java-8.0.19.jar /opt/tomcat/common/lib/
 ```
-<!-- SAKAI MySQL Settings -->
+<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
+```sh
+mysql -u root -p
+Enter password:
+mysql> create database sakaidb default character set utf8;
+mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+```
 Sakai için veritabanı ve diğer ayarları sakai.properties dosyasına ekliyoruz;
 ```sh
 cp /opt/tomcat/sakai/config/configuration/bundles/src/bundle/org/sakaiproject/config/bundle/default.sakai.properties /opt/tomcat/sakai/sakai.properties
@@ -434,15 +443,6 @@ defaultTransactionIsolationString@javax.sql.BaseDataSource=TRANSACTION_READ_COMM
 # To get accurate MySQL query throughput statistics (e.g. for graphing) from the mysql command show status like 'Com_select'
 # This alternate validation query should be used so as not to increment the query counter unnecessarily when validating the connection:
 # validationQuery@javax.sql.BaseDataSource=show variables like 'version'
-```
-<b>SAKAI</b> için bir veritabanı, kullanıcı adı ve şifre oluşturalım;
-```sh
-mysql -u root -p
-Enter password:
-mysql> create database sakaidb default character set utf8;
-mysql> GRANT ALL PRIVILEGES ON sakaidb.* TO 'sakaiuser'@'%' IDENTIFIED BY 'sakaipassword';
-mysql> FLUSH PRIVILEGES;
-mysql> quit
 ```
 <b>SAKAI</b>'yi başlatıyoruz;
 ```sh
