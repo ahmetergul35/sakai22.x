@@ -1,3 +1,4 @@
+Create ROOT directory;
 ```sh
 mkdir /opt/tomcat/webapps/ROOT
 vim /opt/tomcat/webapps/ROOT/index.html
