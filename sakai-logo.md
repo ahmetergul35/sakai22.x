@@ -2,7 +2,9 @@
 
 Pixel size;
 ```sh
-/opt/apache-tomcat-9.0.8/webapps/library/skin/morpheus-default/tool.css
+vim /opt/apache-tomcat-9.0.8/webapps/library/skin/morpheus-default/tool.css
+```
+```sh
 --logo: url('images/logo-jewel.png');--logo-height: 50px;--logo-width: 300px;
 ```
 Logo Path;
